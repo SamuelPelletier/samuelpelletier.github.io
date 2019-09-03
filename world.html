@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes voyages</title>
+
+    <link href="css/world.css" rel="stylesheet">
+</head>
+<body>
+<section>
+    <h1>Mes voyages</h1>
+    <p> J'ai eu l'occasion de beaucoup voyager et de découvrir de nouvelles cultures que ce soit en Asie, au Canada ou
+        même en Europe.</p>
+    <p> Mon plus grand voyage fut celui au <a id="japan">Japon</a>. J'ai organisé cette aventure avec mes amis pour
+        découvrir en 3
+        semaines le Japon.
+        Nous avons fait un grand tour du Japon allant de Tokyo à Akita, puis Aomori, enfin Sendai. Nous sommes par la
+        suite
+        déscendu dans le sud du Japon, dans l'ancienne capital : Osaka.<br>
+        Nous avons découvert également les villes de Kyoto, Kobe et Hiroshima.
+    </p>
+    <p>Nous repartons en Février 2019 pour un périple de 3 mois !</p>
+
+    <a href="index.html">
+        <button>Retour</button>
+    </a>
+</section>
+</body>
+<script src="js/jquery.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-geo/1.9.1/d3-geo.min.js"></script>
+
+
+<script src="https://threejs.org/build/three.min.js"></script>
+<script src='https://threejs.org/examples/js/loaders/AssimpJSONLoader.js'></script>
+<script src="https://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
+<script src="https://threejs.org/examples/js/effects/StereoEffect.js"></script>
+<script src="https://threejs.org/examples/js/libs/tween.min.js"></script>
+<!-- glowing effect scripts -->
+<script src="https://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://threejs.org/examples/js/postprocessing/MaskPass.js"></script>
+<script src="https://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://threejs.org/examples/js/shaders/CopyShader.js"></script>
+<script src="https://threejs.org/examples/js/shaders/FXAAShader.js"></script>
+<script src="https://threejs.org/examples/js/shaders/ConvolutionShader.js"></script>
+<script src="https://threejs.org/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://threejs.org/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+<script src="js/world.js"></script>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+    vNormal = normalize( normalMatrix * normal );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+</script>
+
+<!-- fragment shader a.k.a. pixel shader -->
+<script id="fragmentShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+  float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
+    gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 ) * intensity;
+}
+</script>
+<script>
+    $('#japan').on('click', function () {
+        camera.position.x = -150;
+        camera.position.y = 200;
+        camera.position.z = -70;
+        camera.lookAt(scene.position);
+    })
+</script>
+</html>

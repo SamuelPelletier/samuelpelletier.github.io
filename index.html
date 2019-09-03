@@ -18,15 +18,17 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/neon.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!-- Autre -->
@@ -63,16 +65,13 @@
                     <a href="#page-top"></a>
                 </li>
                 <li>
-                    <a class="page-scroll" id="about">Mes capacités</a>
+                    <a class="page-scroll" href="https://github.com/SamuelPelletier">Mes travaux</a>
                 </li>
                 <li>
-                    <a class="page-scroll" id="travaux">Mes travaux</a>
+                    <a class="page-scroll" href="world.html">Mes voyages</a>
                 </li>
                 <li>
-                    <a class="page-scroll" id="download">A propos de moi</a>
-                </li>
-                <li>
-                    <a class="page-scroll" id="contact">Me contacter</a>
+                    <a class="page-scroll" href="#contact">Me contacter</a>
                 </li>
             </ul>
         </div>
@@ -81,16 +80,39 @@
     <!-- /.container -->
 </nav>
 
+<!-- Intro Header -->
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <p><a id="welcome" class="neon-tube neon-text-orange">Bienvenue</a></p>
+                    <p class="intro-text"></br></br></p>
+                    <a href="#about" class="btn btn-circle page-scroll">
+                        <i class="fa fa-angle-double-down animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<section id="content">
-
+<!-- About Section -->
+<section id="about" class="container content-section text-center">
+    <div class="row">
+        <canvas id="scene"></canvas>
+        <input id="copy" value="MES CAPACITES" type="hidden"/>
+        <div id="chartdiv2"></div>
+        </br></br></br></br></br>
+    </div>
 </section>
-
 
 <!-- Footer -->
 <footer>
     <div class="container text-center">
-        <p>Copyright &copy; Samuel Pelletier 2017</p>
+        <p id="copyright">Copyright &copy; Samuel Pelletier
+            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        </p>
     </div>
 </footer>
 
@@ -108,8 +130,6 @@
 
 <!-- Me JS -->
 <script src="js/js.js"></script>
-<script src="js/page.js"></script>
-
 
 
 </body>

@@ -1,131 +1,131 @@
 var canvas = document.querySelector("#scene"),
-		ctx = canvas.getContext("2d"),
-		particles = [],
-		amount = 0,
-		mouse = {x:0,y:0},
-		radius = 1;
+    ctx = canvas.getContext("2d"),
+    particles = [],
+    amount = 0,
+    mouse = {x: 0, y: 0},
+    radius = 1;
 
-	var colors = ["#468966","#FFF0A5", "#FFB03B","#B64926", "#8E2800"];
+var colors = ["#468966", "#FFF0A5", "#FFB03B", "#B64926", "#8E2800"];
 
-	var copy = document.querySelector("#copy");
+var copy = document.querySelector("#copy");
 
-	var ww = canvas.width = window.innerWidth;
-	var wh = canvas.height = window.innerHeight;
+var ww = canvas.width = window.innerWidth;
+var wh = canvas.height = window.innerHeight;
 
-	function Particle(x,y){
-		this.x =  Math.random()*ww;
-		this.y =  Math.random()*wh;
-		this.dest = {
-			x : x,
-			y: y
-		};
-		this.r =  Math.random()*5 + 2;
-		this.vx = (Math.random()-0.5)*20;
-		this.vy = (Math.random()-0.5)*20;
-		this.accX = 0;
-		this.accY = 0;
-		this.friction = Math.random()*0.05 + 0.94;
+function Particle(x, y) {
+    this.x = Math.random() * ww;
+    this.y = Math.random() * wh;
+    this.dest = {
+        x: x,
+        y: y
+    };
+    this.r = Math.random() * 5 + 2;
+    this.vx = (Math.random() - 0.5) * 20;
+    this.vy = (Math.random() - 0.5) * 20;
+    this.accX = 0;
+    this.accY = 0;
+    this.friction = Math.random() * 0.05 + 0.94;
 
-		this.color = colors[Math.floor(Math.random()*6)];
-	}
-
-	Particle.prototype.render = function() {
-
-
-		this.accX = (this.dest.x - this.x)/1000;
-		this.accY = (this.dest.y - this.y)/1000;
-		this.vx += this.accX;
-		this.vy += this.accY;
-		this.vx *= this.friction;
-		this.vy *= this.friction;
-
-		this.x += this.vx;
-		this.y +=  this.vy;
-
-		ctx.fillStyle = this.color;
-		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
-		ctx.fill();
-
-		var a = this.x - mouse.x;
-		var b = this.y - mouse.y;
-
-		var distance = Math.sqrt( a*a + b*b );
-		if(distance<(radius*70)){
-			this.accX = (this.x - mouse.x)/100;
-			this.accY = (this.y - mouse.y)/100;
-			this.vx += this.accX;
-			this.vy += this.accY;
-		}
-
-	}
-
-	function onMouseMove(e){
-		mouse.x = e.clientX;
-		mouse.y = e.clientY;
-	}
-
-	function onTouchMove(e){
-    if(e.touches.length > 0 ){
-      mouse.x = e.touches[0].clientX;
-      mouse.y = e.touches[0].clientY;
-    }
-	}
-
-function onTouchEnd(e){
-  mouse.x = -9999;
-  mouse.y = -9999;
+    this.color = colors[Math.floor(Math.random() * 6)];
 }
 
-	function initScene(){
-		ww = canvas.width = window.innerWidth;
-		wh = canvas.height = window.innerHeight;
+Particle.prototype.render = function () {
 
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		ctx.font = "bold "+(ww/10)+"px sans-serif";
-		ctx.textAlign = "center";
-		ctx.fillText(copy.value, ww/2, wh/2);
+    this.accX = (this.dest.x - this.x) / 1000;
+    this.accY = (this.dest.y - this.y) / 1000;
+    this.vx += this.accX;
+    this.vy += this.accY;
+    this.vx *= this.friction;
+    this.vy *= this.friction;
 
-		var data  = ctx.getImageData(0, 0, ww, wh).data;
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.globalCompositeOperation = "screen";
+    this.x += this.vx;
+    this.y += this.vy;
 
-		particles = [];
-		for(var i=0;i<ww;i+=Math.round(ww/150)){
-			for(var j=0;j<wh;j+=Math.round(ww/150)){
-				if(data[ ((i + j*ww)*4) + 3] > 150){
-					particles.push(new Particle(i,j));
-				}
-			}
-		}
-		amount = particles.length;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+    ctx.fill();
 
-	}
+    var a = this.x - mouse.x;
+    var b = this.y - mouse.y;
 
-	function onMouseClick(){
-		radius++;
-		if(radius ===5){
-			radius = 0;
-		}
-	}
+    var distance = Math.sqrt(a * a + b * b);
+    if (distance < (radius * 70)) {
+        this.accX = (this.x - mouse.x) / 100;
+        this.accY = (this.y - mouse.y) / 100;
+        this.vx += this.accX;
+        this.vy += this.accY;
+    }
 
-	function render(a) {
-		requestAnimationFrame(render);
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		for (var i = 0; i < amount; i++) {
-			particles[i].render();
-		}
-	};
+}
 
-	copy.addEventListener("keyup", initScene);
-	window.addEventListener("resize", initScene);
-	window.addEventListener("mousemove", onMouseMove);
-	window.addEventListener("touchmove", onTouchMove);
-	window.addEventListener("click", onMouseClick);
-	window.addEventListener("touchend", onTouchEnd);
-	initScene();
-	requestAnimationFrame(render);
+function onMouseMove(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+}
+
+function onTouchMove(e) {
+    if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }
+}
+
+function onTouchEnd(e) {
+    mouse.x = -9999;
+    mouse.y = -9999;
+}
+
+function initScene() {
+    ww = canvas.width = window.innerWidth;
+    wh = canvas.height = window.innerHeight;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "bold " + (ww / 10) + "px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(copy.value, ww / 2, wh / 2);
+
+    var data = ctx.getImageData(0, 0, ww, wh).data;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "screen";
+
+    particles = [];
+    for (var i = 0; i < ww; i += Math.round(ww / 150)) {
+        for (var j = 0; j < wh; j += Math.round(ww / 150)) {
+            if (data[((i + j * ww) * 4) + 3] > 150) {
+                particles.push(new Particle(i, j));
+            }
+        }
+    }
+    amount = particles.length;
+
+}
+
+function onMouseClick() {
+    radius++;
+    if (radius === 5) {
+        radius = 0;
+    }
+}
+
+function render(a) {
+    requestAnimationFrame(render);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < amount; i++) {
+        particles[i].render();
+    }
+};
+
+copy.addEventListener("keyup", initScene);
+window.addEventListener("resize", initScene);
+window.addEventListener("mousemove", onMouseMove);
+window.addEventListener("touchmove", onTouchMove);
+window.addEventListener("click", onMouseClick);
+window.addEventListener("touchend", onTouchEnd);
+initScene();
+requestAnimationFrame(render);
 
 
 // svg path for target icon
@@ -135,116 +135,122 @@ var planeSVG = "M19.671,8.11l-2.777,2.777l-3.837-0.861c0.362-0.505,0.916-1.683,0
 
 
 var chart = AmCharts.makeChart("chartdiv2", {
-  "type": "serial",
-  "theme": "dark",
-  "marginRight": 70,
-  "dataProvider": [{
-    "langage": "C",
-    "lvl": 2,
-    "color": "#FF0F00"
-  }, {
-    "langage": "C++",
-    "lvl": 2,
-    "color": "#FF6600"
-  }, {
-    "langage": "C#",
-    "lvl": 7,
-    "color": "#FF9E01"
-  }, {
-    "langage": "Java",
-    "lvl": 4,
-    "color": "#FCD202"
-  }, {
-    "langage": "PHP",
-    "lvl": 9,
-    "color": "#F8FF01"
-  }, {
-    "langage": "HTML/CSS",
-    "lvl": 6,
-    "color": "#B0DE09"
-  }, {
-    "langage": "Python",
-    "lvl": 4,
-    "color": "#04D215"
-  }, {
-    "langage": "JavaScript",
-    "lvl": 4,
-    "color": "#0D8ECF"
-  }, {
-    "langage": "SQL",
-    "lvl": 8,
-    "color": "#0D52D1"
-  }, {
-    "langage": "WordPress",
-    "lvl": 5,
-    "color": "#2A0CD0"
-  }, {
-    "langage": "ImpressPages",
-    "lvl": 8,
-    "color": "#8A0CCF"
-  },{
-    "langage": "Symphony2",
-    "lvl": 8,
-    "color": "#CD0D74"
-  }],
-  "valueAxes": [{
-    "axisAlpha": 0,
-    "position": "left",
-    "title": "Langages de programations"
-  }],
-  "startDuration": 1,
-  "graphs": [{
-    "balloonText": "<b>[[category]]: [[value]]</b>",
-    "fillColorsField": "color",
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "type": "column",
-    "valueField": "lvl"
-  }],
-  "chartCursor": {
-    "categoryBalloonEnabled": false,
-    "cursorAlpha": 0,
-    "zoomable": false
-  },
-  "categoryField": "langage",
-  "categoryAxis": {
-    "gridPosition": "start",
-    "labelRotation": 45
-  },
-  "export": {
-    "enabled": true
-  }
+    "type": "serial",
+    "theme": "dark",
+    "marginRight": 70,
+    "dataProvider": [{
+        "langage": "Shell & Bash",
+        "lvl": 6,
+        "color": "#ff0000"
+    }, {
+        "langage": "Git",
+        "lvl": 8,
+        "color": "#ff6600"
+    }, {
+        "langage": "C & C++",
+        "lvl": 7,
+        "color": "#ffc000"
+    }, {
+        "langage": "GO",
+        "lvl": 6,
+        "color": "#ffff00"
+    }, {
+        "langage": "SQL",
+        "lvl": 9,
+        "color": "#99ff66"
+    }, {
+        "langage": "C#",
+        "lvl": 7,
+        "color": "#33cc33"
+    }, {
+        "langage": "Java & Android",
+        "lvl": 6,
+        "color": "#008000"
+    }, {
+        "langage": "Swift",
+        "lvl": 6,
+        "color": "#000099"
+    }, {
+        "langage": "Python",
+        "lvl": 4,
+        "color": "#0066ff"
+    }, {
+        "langage": "PHP / Symfony",
+        "lvl": 9,
+        "color": "#00b0f0"
+    }, {
+        "langage": "HTML/CSS",
+        "lvl": 9,
+        "color": "#ff99ff"
+    }, {
+        "langage": "JavaScript",
+        "lvl": 8,
+        "color": "#660066"
+    }, {
+        "langage": "Google Script",
+        "lvl": 6,
+        "color": "#8A0CCF"
+    }],
+    "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left",
+        "title": "Langages de programations",
+        "maximum": 10,
+        "minimum": 0
+    }],
+    "startDuration": 1,
+    "graphs": [{
+        "balloonText": "<b>[[category]]: [[value]]</b>",
+        "fillColorsField": "color",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "type": "column",
+        "valueField": "lvl"
+    }],
+    "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+    },
+    "categoryField": "langage",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "labelRotation": 45
+    },
+    "export": {
+        "enabled": true
+    }
 
 });
 
-$.fn.commentCards = function(){
+$.fn.commentCards = function () {
 
-  return this.each(function(){
+    return this.each(function () {
 
-    var $this = $(this),
-        $cards = $this.find('.card'),
-        $current = $cards.filter('.card--current'),
-        $next;
+        var $this = $(this),
+            $cards = $this.find('.card'),
+            $current = $cards.filter('.card--current'),
+            $next;
 
-    $cards.on('click',function(){
-      if ( !$current.is(this) ) {
-        $cards.removeClass('card--current card--out card--next');
-        $current.addClass('card--out');
-        $current = $(this).addClass('card--current');
-        $next = $current.next();
-        $next = $next.length ? $next : $cards.first();
-        $next.addClass('card--next');
-      }
-    });
+        $cards.on('click', function () {
+            if (!$current.is(this)) {
+                $cards.removeClass('card--current card--out card--next');
+                $current.addClass('card--out');
+                $current = $(this).addClass('card--current');
+                $next = $current.next();
+                $next = $next.length ? $next : $cards.first();
+                $next.addClass('card--next');
+            }
+        });
 
-    if ( !$current.length ) {
-      $current = $cards.last();
-      $cards.first().trigger('click');
-    }
+        if (!$current.length) {
+            $current = $cards.last();
+            $cards.first().trigger('click');
+        }
 
-    $this.addClass('cards--active');
+        $this.addClass('cards--active');
 
-  })
+    })
 
 };
 
