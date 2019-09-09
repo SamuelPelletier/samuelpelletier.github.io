@@ -19,7 +19,7 @@
         déscendu dans le sud du Japon, dans l'ancienne capital : Osaka.<br>
         Nous avons découvert également les villes de Kyoto, Kobe et Hiroshima.
     </p>
-    <p>Nous repartons en Février 2019 pour un périple de 3 mois !</p>
+    <p>Nous repartons en Février 2020 pour un périple de 3 mois !</p>
 
     <a href="index.html">
         <button>Retour</button>
@@ -57,6 +57,7 @@ void main()
     vNormal = normalize( normalMatrix * normal );
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
+
 </script>
 
 <!-- fragment shader a.k.a. pixel shader -->
@@ -67,6 +68,7 @@ void main()
   float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
     gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 ) * intensity;
 }
+
 </script>
 <script>
     $('#japan').on('click', function () {

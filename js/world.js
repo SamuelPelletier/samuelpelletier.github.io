@@ -123,6 +123,10 @@ const our_data = [
         destination: {name: "Vancouver", latitude: 49.2608724, longitude: -123.1139529}
     },
     {
+        origin: {name: "Vancouver", latitude: 49.2608724, longitude: -123.1139529},
+        destination: {name: "Victoria", latitude: 48.4283, longitude: -123.36500000000001}
+    },
+    {
         origin: {name: "Genève", latitude: 46.201756, longitude: 6.1466601},
         destination: {name: "Tokyo", latitude: 35.6828387, longitude: 139.7594549}
     },
