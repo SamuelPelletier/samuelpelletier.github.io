@@ -160,7 +160,7 @@ var chart = AmCharts.makeChart("chartdiv2", {
         "color": "#99ff66"
     }, {
         "langage": "C#",
-        "lvl": 7,
+        "lvl": 8,
         "color": "#33cc33"
     }, {
         "langage": "Java & Android",

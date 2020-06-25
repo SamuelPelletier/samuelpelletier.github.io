@@ -116,6 +116,10 @@ const our_data = [
     },
     {
         origin: {name: "Genève", latitude: 46.201756, longitude: 6.1466601},
+        destination: {name: "Mayence", latitude: 50.0012314, longitude: 8.2762513}
+    },
+    {
+        origin: {name: "Genève", latitude: 46.201756, longitude: 6.1466601},
         destination: {name: "Bangkok", latitude: 13.7538929, longitude: 100.8160803}
     },
     {
@@ -151,16 +155,20 @@ const our_data = [
         destination: {name: "Osaka", latitude: 34.6937569, longitude: 135.5014539}
     },
     {
-        origin: {name: "Osaka", latitude: 34.6937569, longitude: 135.5014539},
-        destination: {name: "Kyoto", latitude: 35.021041, longitude: 135.7556075}
+        origin: {name: "Tokyo", latitude: 35.6828387, longitude: 139.7594549},
+        destination: {name: "Sapporo", latitude: 43.061936, longitude: 141.3542924}
     },
     {
-        origin: {name: "Osaka", latitude: 34.6937569, longitude: 135.5014539},
-        destination: {name: "Kobe", latitude: 34.6932379, longitude: 135.1943764}
+        origin: {name: "Tokyo", latitude: 35.6828387, longitude: 139.7594549},
+        destination: {name: "Okinawa", latitude: 26.2122345, longitude: 127.6791452}
     },
     {
         origin: {name: "Osaka", latitude: 34.6937569, longitude: 135.5014539},
         destination: {name: "Hiroshima", latitude: 34.3916058, longitude: 132.4518156}
+    },
+    {
+        origin: {name: "Osaka", latitude: 34.6937569, longitude: 135.5014539},
+        destination: {name: "Kanazawa", latitude: 36.5780499, longitude: 136.6480247}
     },
 ];
 

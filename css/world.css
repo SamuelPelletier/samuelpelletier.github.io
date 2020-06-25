@@ -21,6 +21,10 @@ body {
     font-family: "Didact Gothic", sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 canvas {
     position: absolute;
     top: 0;
@@ -58,6 +62,11 @@ p {
 }
 
 #japan {
+    color: orange;
+    cursor: pointer;
+}
+
+#japan2 {
     color: orange;
     cursor: pointer;
 }
